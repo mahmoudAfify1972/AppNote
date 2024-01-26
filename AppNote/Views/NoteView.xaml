@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel ="clr-namespace:AppNote.ViewModels"
+             x:Class="AppNote.Views.NoteView">
+    <ContentView.BindingContext>
+        <viewmodel:NoteViewModel/>
+    </ContentView.BindingContext>
+    
+    <VerticalStackLayout Padding="15">
+        <Label 
+            FontSize="Medium"
+            Text="مرحبا بك فى برمجيات محاسب / محمود الصياد عفيفى"
+            VerticalOptions="Center" 
+            HorizontalOptions="End" />
+        <Label 
+            FontSize="Medium"
+            Text="نوتة بيانات"
+            VerticalOptions="Center" 
+            HorizontalOptions="End" />
+
+        <Frame BackgroundColor="Gold">
+            <VerticalStackLayout Spacing="10">
+                <Label 
+            FontSize="Small"
+            Text="عنوان الملاحظه"
+            VerticalOptions="Center" 
+            HorizontalOptions="End" />
+
+                <Entry Placeholder="اخل عنوان الملاحظه هنا" Text="{Binding NoteTitle}"  
+            FontSize="Medium"  BackgroundColor="Black" TextColor="GreenYellow"
+              />
+
+                <Label 
+            FontSize="Small"
+            Text="اكتب الملاحظه"
+            VerticalOptions="Center" 
+            HorizontalOptions="End" />
+
+                <Editor Placeholder="ادخل موضوع او وصف الملاحظه هنا" Text="{Binding NoteDescreption}" HeightRequest="200" 
+                        BackgroundColor="Black" TextColor="GreenYellow"  FontSize="Medium"/>
+                <Button Command="{Binding AddNoteCommand}" Text="اضافة ملاحظه"/>
+            </VerticalStackLayout>  
+        </Frame>
+        <ListView ItemsSource="{Binding NoteCollection}" SelectedItem="{Binding SlectedNote}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}" Detail="{Binding Description}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <HorizontalStackLayout Spacing="30" Margin="10">
+            <Button Text="حذف الملاحظه"  Command="{Binding DeleteNoteCommand}"/>
+            <Button Text="تعديل الملاحظه"  Command="{Binding EditNoteCommand}"/>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentView>
